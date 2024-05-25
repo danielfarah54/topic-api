@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+  api:
+    container_name: nest
+    restart: always
+    stop_signal: SIGINT
+    stop_grace_period: 1s
+    command: npm run start:local
+    user: root
+    build:
+      dockerfile: Dockerfile  # Arquivo Dockerfile para build do container
+      context: .  # Contexto de build (raiz do projeto)
+      target: local-development  # Etapa de build específica. É possível testar a build de distribuição com 'distribution'
+      args:
+        - ENVIRONMENT=loc  # Argumento passado para o Dockerfile (variável de ambiente). Vai setar o NODE_ENV
+    environment:
+      MYSQL_HOST: mysql  # Variável de ambiente para o host do banco de dados
+    volumes:
+      - ./src:/usr/src/app/src  # Mapeia o diretório do projeto dentro do container, para que as alterações sejam refletidas
+      - ./prisma:/usr/src/app/prisma  # Mapeia o diretório do prisma dentro do container, para que as alterações sejam refletidas
+      - ./i18n:/usr/src/app/i18n  # Mapeia o diretório de traduções dentro do container, para que as alterações sejam refletidas
+      - ./env:/usr/src/app/env  # Mapeia o arquivo de ambiente para dentro do container
+      - /usr/src/app/node_modules  # Mapeia os módulos node dentro do container, para não serem sobrescritos
+    ports:
+      - 4000:4000  # Mapeia a porta 4000 do host para a porta 4000 do container
+    networks:
+      - my_network # Configura a network
+
+networks:
+  my_network:

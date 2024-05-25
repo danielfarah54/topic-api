@@ -1,0 +1,18 @@
+version: '3.8'
+services:
+  db:
+    container_name: mysql
+    image: mysql:latest
+    restart: always
+    env_file:
+      - ./env/.env.loc  # Arquivo de ambiente para configurar o banco de dados
+    volumes:
+      - ./db/data:/var/lib/mysql # Mapeia o diretório de dados do banco de dados para persistência de dados
+      - ./scripts/mysql-shadow-database.sh:/docker-entrypoint-initdb.d/mysql-shadow-database.sh # Mapeia o diretório de inicialização do banco de dados
+    ports:
+      - 3306:3306  # Mapeia a porta 3306 do host para a porta 3306 do container
+    networks:
+      - my_network # Configura a network
+
+networks:
+  my_network:
