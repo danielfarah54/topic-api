@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "module": "commonjs", // Define o formato de módulo a ser usado
+    "declaration": true, // Gera arquivos de declaração (.d.ts) para suporte a tipos
+    "removeComments": true, // Remove comentários do código de saída
+    "emitDecoratorMetadata": true, // Habilita a geração de metadados de decorator para reflexão em tempo de execução
+    "experimentalDecorators": true, // Habilita o uso de decorators experimentais
+    "allowSyntheticDefaultImports": true, // Permite importar módulos com sintaxe de ES6 mesmo quando o módulo é comum
+    "target": "ES2021", // Define a versão do ECMAScript para a qual o código será transpilado
+    "sourceMap": true, // Gera arquivos de mapas de origem (.map) para depuração
+    "outDir": "dist", // Define o diretório de saída para os arquivos transpilados
+    "baseUrl": "./", // Define o caminho base para os módulos importados
+    "incremental": true, // Habilita a compilação incremental
+    "skipLibCheck": true, // Ignora a verificação de libs de terceiros
+    "strictNullChecks": false, // Desabilita a verificação estrita de tipos nulos
+    "noImplicitAny": false, // Desabilita erros para tipos implícitos "any"
+    "strictBindCallApply": false, // Desabilita verificações estritas para bind, call e apply
+    "forceConsistentCasingInFileNames": false, // Desabilita a verificação de consistência em maiúsculas/minúsculas em nomes de arquivo
+    "noFallthroughCasesInSwitch": false, // Desabilita erros para casos sem "break" em switch
+    "paths": {
+      "@/*": ["src/*"]
+    } // Define aliases de caminhos para facilitar o import de módulos
+  }
+}

@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+
+# Inclui o script husky.sh e common.sh a partir do diretório
+. "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/common.sh"
+
+### Comandos que serão executados no push
+
+# Executando verificações de código
+npm run lint && npm run type-check
+
+### Bloqueio de pushes para branches específicos
+# Aviso: isso também deve ser feito no repositório remoto
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# Bloqueio de push para a branch dev
+if [ "$branch" = "dev" ]; then
+	echo "Você não pode dar push diretamente na branch dev"
+	exit 1
+fi

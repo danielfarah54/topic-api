@@ -1,0 +1,79 @@
+{
+  "env": {
+    "es6": true,
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended", // Utiliza as regras recomendadas pelo ESLint
+    "plugin:import/recommended", // Configurações recomendadas para importações
+    "plugin:import/typescript", // Suporte a importações TypeScript
+    "plugin:@typescript-eslint/recommended", // Utiliza as regras recomendadas pelo plugin @typescript-eslint
+    "plugin:prettier/recommended" // Integração das regras do Prettier com o ESLint
+  ],
+  "parser": "@typescript-eslint/parser", // Define o analisador como o @typescript-eslint/parser
+  "parserOptions": {
+    "ecmaVersion": 12, // Define a versão do ECMAScript
+    "sourceType": "module" // Define o tipo de módulo como "module"
+  },
+  "plugins": [
+    "@typescript-eslint", // Ativa o plugin @typescript-eslint
+    "prettier" // Ativa o plugin do Prettier
+  ],
+  "rules": {
+    // Regras personalizadas
+    "import/no-unresolved": "error", // Reporta erros para importações não resolvidas
+    "import/order": [ // Regras para ordem das importações
+      "error",
+      {
+        "groups": [
+          "builtin",
+          "external",
+          "internal",
+          ["sibling", "parent"],
+          "index",
+          "unknown"
+        ],
+        "newlines-between": "always",
+        "alphabetize": {
+          "order": "asc",
+          "caseInsensitive": false
+        }
+      }
+    ],
+    "sort-imports": [ // Regras para ordenar as importações
+      "error",
+      {
+        "ignoreCase": false,
+        "ignoreDeclarationSort": true,
+        "ignoreMemberSort": false,
+        "allowSeparatedGroups": true,
+        "memberSyntaxSortOrder": ["none", "all", "multiple", "single"]
+      }
+    ],
+    "prettier/prettier": [ // Ativa a integração com o Prettier
+      "error",
+      {
+        "printWidth": 120
+      },
+      {
+        "usePrettierrc": true
+      }
+    ],
+		"no-console": "error", // Reporta warnings para chamadas de console
+    "arrow-body-style": "off", // Desativa regra de estilo para corpos de arrow functions
+    "prefer-arrow-callback": "off", // Desativa preferência por callbacks de arrow functions
+    "no-empty-function": "off", // Desativa a regra de funções vazias
+    "@typescript-eslint/no-non-null-assertion": "off", // Desativa regra de non-null assertion
+    "@typescript-eslint/no-explicit-any": "off" // Desativa regra de any explícito
+  },
+  "settings": {
+    // Configurações de resolução de importações TypeScript
+    "import/resolver": {
+      "typescript": {
+        "project": "./tsconfig.json"
+      }
+    }
+  }
+}

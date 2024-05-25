@@ -1,0 +1,157 @@
+# Referências: https://commitlint.js.org/#/, https://www.conventionalcommits.org/en/v1.0.0/
+
+extends:
+  - '@commitlint/config-conventional'
+formatter: '@commitlint/format'
+helpUrl: 'https://commitlint.js.org/#/reference-prompt'
+prompt:
+  messages:
+    emptyWarning: 'Item obrigatório. Por favor preencha conforme orientação.'
+    lowerLimitWarning: 'Abaixo do limite de caracteres'
+    max: 'Máximo de %d caracteres'
+    min: 'Mínimo de %d caracteres'
+    skip: '(OPCIONAL)'
+    upperLimitWarning: 'Acima do limite de caracteres'
+  questions:
+    body:
+      description: 'Descrição DETALHADA da mudança (Use \\n para quebrar linhas)'
+    breaking:
+      description: 'Descrição CURTA da(s) BREAKING CHANGE(S)'
+    isBreaking:
+      description: 'Existe BREAKING CHANGE?'
+    breakingBody:
+      description: 'A descrição DETALHADA é obrigatória para BREAKING CHANGE(S). Por favor descreva EM DETALHES a mudança. (Use \\n para quebrar linhas)'
+    isIssueAffected:
+      description: 'Essa mudança se relaciona/fecha alguma(s) issue(s)?'
+    issues:
+      description: 'Liste a(s) issue(s)'
+    issuesBody:
+      description: 'A descrição DETALHADA é obrigatória quando um commit se relaciona/fecha uma issue. Por favor descreva EM DETALHES a mudança. (Use \\n para quebrar linhas)'
+    scope:
+      description: 'Qual é o escopo dessa mudança? (ex: button, table, package.json)'
+    subject:
+      description: 'Descrição CURTA sobre a mudança'
+    type:
+      description: 'Selecione o tipo de mudança'
+      enum:
+        build:
+          description: 'Mudanças que afetam o sistema de build (ex: npm, node, webpack, vite...)'
+        chore:
+          description: 'Alterações que não se encaixam em outros prefixos'
+        ci:
+          description: 'Alterações nos arquivos e scripts de configuração de ambiente (Repositório, Pipelines, Permissões...)'
+        deprecated:
+          description: 'Recursos que são removidos em versões futuras'
+        docs:
+          description: 'Adiciona ou altera uma documentação (tutorial, guia, etc...)'
+        feat:
+          description: 'Nova feature, recurso, elemento, comportamento, etc...'
+        fix:
+          description: 'Correções em features, recursos, elementos, comportamentos (e outros) previamente criados'
+        ops:
+          description: 'Atividades operacionais relacionadas a design e de desenvolvimento'
+        perf:
+          description: 'Melhoria de desempenho (tempo de execução, download, carregamento...)'
+        refactor:
+          description: 'Altera o conteúdo sem mudar o resultado final (ex: organização de pastas, camadas...)'
+        removed:
+          description: 'Recurso foi excluído definitivamente do projeto'
+        revert:
+          description: 'Reverte um commit anterior'
+        lint:
+          description: 'Mudanças que não alteram o significado/comportamento (espaços, formatação, semi-vírgulas ausentes...)'
+        test:
+          description: 'Adiciona ou corrige testes'
+        wip:
+          description: 'Trabalho ainda não finalizado'
+rules:
+  body-full-stop:
+    - 2
+    - 'never'
+    - '.'
+  body-leading-blank:
+    - 2
+    - 'always'
+  body-max-length:
+    - 2
+    - 'always'
+    - Infinity
+  body-max-line-length:
+    - 2
+    - 'always'
+    - Infinity
+  footer-leading-blank:
+    - 2
+    - 'always'
+  footer-max-length:
+    - 2
+    - 'always'
+    - Infinity
+  footer-max-line-length:
+    - 2
+    - 'always'
+    - Infinity
+  header-case:
+    - 0
+    - 'always'
+    - 'lower-case'
+  header-full-stop:
+    - 2
+    - 'never'
+    - '.'
+  header-max-length:
+    - 1
+    - 'always'
+    - 100
+  header-min-length:
+    - 2
+    - 'always'
+    - 20
+  scope-case:
+    - 0
+    - 'always'
+    - 'lower-case'
+  scope-max-length:
+    - 2
+    - 'always'
+    - Infinity
+  subject-case:
+    - 0
+    - 'always'
+    - 'lower-case'
+  subject-full-stop:
+    - 2
+    - 'never'
+    - '.'
+  subject-max-length:
+    - 2
+    - 'always'
+    - Infinity
+  type-case:
+    - 0
+    - 'always'
+    - 'lower-case'
+  type-max-length:
+    - 2
+    - 'always'
+    - Infinity
+  type-enum:
+    - 2
+    - 'always'
+    - [
+        'build',
+        'chore',
+        'ci',
+        'deprecated',
+        'docs',
+        'feat',
+        'fix',
+        'lint',
+        'ops',
+        'perf',
+        'refactor',
+        'removed',
+        'revert',
+        'test',
+        'wip',
+      ]

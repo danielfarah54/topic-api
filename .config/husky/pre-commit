@@ -1,0 +1,62 @@
+#!/usr/bin/env sh
+
+# Inclui o script husky.sh e common.sh a partir do diretório
+. "$(dirname -- "$0")/_/husky.sh"
+. "$(dirname -- "$0")/common.sh"
+
+### Comandos que serão executados no commit
+
+### Verificações para arquivos que não devem ser commitados
+# Verifica se node_modules está em staging
+if [ -d node_modules ]; then
+	if git diff --name-only --cached | grep -q node_modules; then
+		echo "node_modules está em staging para commit. Por favor, remova node_modules do commit"
+		exit 1
+	fi
+fi
+
+# Verifica se dist está em staging
+if [ -d dist ]; then
+	if git diff --name-only --cached | grep -q "dist\b"; then
+		echo "dist está em staging para commit. Por favor, remova dist do commit"
+		exit 1
+	fi
+fi
+
+# Verifica se out está em staging
+if [ -d out ]; then
+	if git diff --name-only --cached | grep -q out; then
+		echo "out está em staging para commit. Por favor, remova out do commit"
+		exit 1
+	fi
+fi
+
+# Verifica se yarn.lock está em staging
+if [ -f yarn.lock ]; then
+	if git diff --name-only --cached | grep -q yarn.lock; then
+		echo "yarn.lock está em staging para commit. Este projeto usa npm em vez de yarn. Por favor, remova yarn.lock do commit"
+		exit 1
+	fi
+fi
+
+# Verifica se algum arquivo .env está em staging
+if git diff --name-only --cached | grep -q "\.env\b"; then
+	echo "Arquivos .env estão em staging para commit. Por favor, remova os arquivos .env do commit"
+	exit 1
+fi
+
+### Bloqueio de commits para branches específicos
+# Aviso: isso também deve ser feito no repositório remoto
+branch="$(git rev-parse --abbrev-ref HEAD)"
+
+# Bloqueio de commits para a branch master
+if [ "$branch" = "master" ]; then
+	echo "Você não pode fazer commit diretamente na branch master"
+	exit 1
+fi
+
+# Bloqueio de commits para a branch dev
+if [ "$branch" = "dev" ]; then
+	echo "Você não pode fazer commit diretamente na branch dev"
+	exit 1
+fi
