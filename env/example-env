@@ -1,0 +1,32 @@
+# Database variables
+MYSQL_USER=
+MYSQL_PASSWORD=
+MYSQL_DATABASE=
+MYSQL_HOST=
+MYSQL_PORT=
+DATABASE_URL=
+
+# Server variables
+PORT=
+
+# General settings
+SHOW_STACK_TRACE=
+
+# GraphQL variables
+QUERY_MAX_DEPTH=
+GRAPHQL_URL=
+
+##### Authentication variables #####
+# General auth variables
+AUTH_METHOD=
+BCRYPT_SALT_ROUNDS=
+FORGOT_PASSWORD_CODE_EXPIRATION_MINUTES=
+
+# Local auth variables
+JWT_SECRET=
+JWT_EXPIRATION_TIME=
+JWT_REFRESH_TOKEN_EXPIRATION_TIME=
+JWT_REFRESH_TOKEN_SECRET=
+
+# Environment variables
+NODE_ENV=
