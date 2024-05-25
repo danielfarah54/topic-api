@@ -2,6 +2,7 @@ import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { Global, MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { GraphQLModule } from '@nestjs/graphql';
+import { JwtModule } from '@nestjs/jwt';
 
 import { I18nMiddleware } from '@/common/middlewares/i18n.middleware';
 import { LocalStorageMiddleware } from '@/common/middlewares/local-storage.middleware';
@@ -13,6 +14,8 @@ import { configModuleOptions } from '@/config/environment/env.config';
 import { graphqlConfigFactory } from '@/config/graphql/graphql.config';
 import { GraphQLService } from '@/config/graphql/graphql.service';
 import { ShutdownObserver } from '@/config/server/shutdown-observer';
+import { AuthModule } from '@/modules/auth.module';
+import { SessionModule } from '@/modules/session.module';
 import { UserModule } from '@/modules/user.module';
 
 /**
@@ -22,6 +25,7 @@ import { UserModule } from '@/modules/user.module';
 @Global()
 @Module({
   imports: [
+    AuthModule,
     ConfigModule.forRoot(configModuleOptions),
     GraphQLModule.forRootAsync<ApolloDriverConfig>({
       /**
@@ -31,7 +35,16 @@ import { UserModule } from '@/modules/user.module';
       useFactory: graphqlConfigFactory,
       driver: ApolloDriver,
     }),
+    JwtModule.registerAsync({
+      inject: [ConfigService],
+      useFactory: async (configService: ConfigService) => ({
+        secret: configService.getOrThrow('JWT_SECRET'),
+        signOptions: { expiresIn: configService.getOrThrow('JWT_EXPIRATION_TIME') },
+      }),
+      global: true,
+    }),
     LocalStorageModule,
+    SessionModule,
     UserModule,
   ],
   providers: [ComplexityPlugin, GraphQLService, I18nService, PrismaService, ShutdownObserver],
