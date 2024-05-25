@@ -1,0 +1,82 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider          = "mysql"
+  url               = env("DATABASE_URL")
+  shadowDatabaseUrl = env("SHADOW_DATABASE_URL")
+}
+
+model User {
+  id        String    @id @default(uuid()) @map("USER_CD_USER")
+  name      String    @map("USER_TX_NAME")
+  email     String    @unique @map("USER_TX_EMAIL")
+  password  String    @map("USER_TX_PASSWORD")
+  createdAt DateTime  @default(now()) @map("USER_DT_CREATED_AT")
+  updatedAt DateTime? @updatedAt @map("USER_DT_UPDATED_AT")
+
+  notes              Note[]
+  session            Session?
+  topics             Topic[]
+  userPasswordResets UserPasswordReset[]
+
+  @@map("USER")
+}
+
+model Session {
+  id        String    @id @default(uuid()) @map("SESS_CD_SESSION")
+  userId    String    @unique @map("USER_CD_USER")
+  token     String    @map("SESS_TX_TOKEN") @db.VarChar(1600)
+  refresh   String    @map("SESS_TX_REFRESH") @db.VarChar(1600)
+  createdAt DateTime  @default(now()) @map("SESS_DT_CREATED_AT")
+  updatedAt DateTime? @updatedAt @map("SESS_DT_UPDATED_AT")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("SESSION")
+}
+
+model UserPasswordReset {
+  id        String    @id @default(uuid()) @map("USPR_CD_USER_PASSWORD_RESET")
+  userId    String    @map("USER_CD_USER")
+  code      String    @unique @map("USPR_TX_CODE") @db.VarChar(500)
+  expiresAt DateTime  @map("USPR_DT_EXPIRES_AT")
+  createdAt DateTime  @default(now()) @map("USPR_DT_CREATED_AT")
+  updatedAt DateTime? @updatedAt @map("USPR_DT_UPDATED_AT")
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("USER_PASSWORD_RESET")
+}
+
+model Note {
+  id        String    @id @default(uuid()) @map("NOTE_CD_NOTE")
+  title     String    @map("NOTE_TX_TITLE")
+  content   String?   @map("NOTE_TX_CONTENT")
+  createdAt DateTime  @default(now()) @map("NOTE_DT_CREATED_AT")
+  updatedAt DateTime? @updatedAt @map("NOTE_DT_UPDATED_AT")
+  userId    String    @map("USER_CD_USER")
+  topicId   String    @map("TOPI_CD_TOPIC")
+
+  topic Topic @relation(fields: [topicId], references: [id])
+  user  User  @relation(fields: [userId], references: [id])
+
+  @@map("NOTE")
+}
+
+model Topic {
+  id        String    @id @default(uuid()) @map("TOPI_CD_TOPIC")
+  name      String    @map("TOPI_TX_NAME")
+  createdAt DateTime  @default(now()) @map("TOPI_DT_CREATED_AT")
+  updatedAt DateTime? @updatedAt @map("TOPI_DT_UPDATED_AT")
+  userId    String    @map("USER_CD_USER")
+
+  note Note[]
+  user User   @relation(fields: [userId], references: [id])
+
+  @@map("TOPIC")
+}
