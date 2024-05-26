@@ -2,7 +2,7 @@ import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 import { IsEnum, IsOptional, IsString } from 'class-validator';
 
 import { PaginationInput } from './pagination.dto';
-import { DefaultOrderByInput } from '../enums/order-by.enum';
+import { OrderByInput } from '../enums/order-by.enum';
 
 @InputType('UserFilterInput')
 export class UserFilterInput extends PaginationInput {
@@ -11,12 +11,12 @@ export class UserFilterInput extends PaginationInput {
   @Field({ nullable: true })
   name?: string;
 
-  @IsEnum(DefaultOrderByInput)
+  @IsEnum(OrderByInput)
   @IsOptional()
   @Field({ nullable: true })
-  orderBy?: DefaultOrderByInput;
+  orderBy?: OrderByInput;
 }
 
-registerEnumType(DefaultOrderByInput, {
+registerEnumType(OrderByInput, {
   name: 'DefaultOrderByInput',
 });

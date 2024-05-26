@@ -2,7 +2,7 @@ import { Field, InputType, registerEnumType } from '@nestjs/graphql';
 import { IsEmail, IsEnum, IsNotEmpty, IsOptional, IsString, IsUUID, MaxLength, MinLength } from 'class-validator';
 
 import { PaginationInput } from './pagination.dto';
-import { DefaultOrderByInput } from '../enums/order-by.enum';
+import { OrderByInput } from '../enums/order-by.enum';
 import { HasValue, ToLowerCase } from '../utils/functions/case-transform.util';
 
 @InputType('UserUpdateInput')
@@ -32,12 +32,12 @@ export class UserUpdateInput {
 
 @InputType('UserGetAllInput')
 export class UserGetAllInput extends PaginationInput {
-  @IsEnum(DefaultOrderByInput)
+  @IsEnum(OrderByInput)
   @IsOptional()
   @Field({ nullable: true })
-  orderBy?: DefaultOrderByInput;
+  orderBy?: OrderByInput;
 }
 
-registerEnumType(DefaultOrderByInput, {
+registerEnumType(OrderByInput, {
   name: 'DefaultOrderByInput',
 });

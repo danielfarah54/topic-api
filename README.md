@@ -58,7 +58,9 @@ O sistema tem o propósito de ser uma plataforma para salvar anotações de dife
   - DELETE:
     - permissão:
       - admin
-      - usuário que criou, somente se o tópico não tiver anotações
+      - usuário que criou
+    - regras:
+      - somente se o tópico não tiver anotações
 
 - CRUD DE ANOTAÇÕES DENTRO DO TÓPICO:
   - CREATE:

@@ -48,6 +48,8 @@ export class JwtStrategy extends PassportStrategy(Strategy, AuthenticationMethod
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
     const userCurrentToken = await this.sessionService.findTokenByUserId(id);
 
-    if (userCurrentToken.token !== token) return this.fail('InvalidToken', HttpStatus.UNAUTHORIZED);
+    if (userCurrentToken.token !== token) {
+      return this.fail('InvalidToken', HttpStatus.UNAUTHORIZED);
+    }
   }
 }

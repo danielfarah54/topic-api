@@ -16,6 +16,7 @@ import { GraphQLService } from '@/config/graphql/graphql.service';
 import { ShutdownObserver } from '@/config/server/shutdown-observer';
 import { AuthModule } from '@/modules/auth.module';
 import { SessionModule } from '@/modules/session.module';
+import { TopicModule } from '@/modules/topic.module';
 import { UserModule } from '@/modules/user.module';
 
 /**
@@ -45,6 +46,7 @@ import { UserModule } from '@/modules/user.module';
     }),
     LocalStorageModule,
     SessionModule,
+    TopicModule,
     UserModule,
   ],
   providers: [ComplexityPlugin, GraphQLService, I18nService, PrismaService, ShutdownObserver],

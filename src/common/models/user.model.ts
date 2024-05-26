@@ -10,12 +10,6 @@ export class UserModel {
 
   @Field()
   email: string;
-
-  @Field()
-  createdAt: Date;
-
-  @Field({ nullable: true })
-  updatedAt: Date;
 }
 
 @ObjectType('PaginatedUser')
