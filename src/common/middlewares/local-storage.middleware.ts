@@ -15,7 +15,7 @@ export class LocalStorageMiddleware implements NestMiddleware {
    * @param res Objeto de resposta HTTP.
    * @param next Função para continuar a cadeia de middleware.
    */
-  use(req: Request, res: Response, next: NextFunction) {
+  use(req: Request, res: Response, next: NextFunction): void {
     this.localStorageService.run(() => {
       this.localStorageService.set(CLS_ID, uuidV4()); // Atribui um ID único ao contexto
       return next(); // Chama a próxima função na cadeia de middleware

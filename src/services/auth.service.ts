@@ -62,7 +62,7 @@ export class AuthService {
     return { ...tokens };
   }
 
-  async logout(userId: string): Promise<boolean> {
+  logout(userId: string): Promise<boolean> {
     return this.sessionService.invalidate(userId);
   }
 

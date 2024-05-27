@@ -16,7 +16,7 @@ export class I18nMiddleware implements NestMiddleware {
    * @param res Objeto de resposta HTTP.
    * @param next Função para continuar a cadeia de middleware.
    */
-  use(req: Request, res: Response, next: NextFunction) {
+  use(req: Request, res: Response, next: NextFunction): void {
     const lang = req.headers['accept-language'];
     this.localStorageService.set('lang', lang || 'en-US'); // Define o idioma no LocalStorageService
     next(); // Chama a próxima função na cadeia de middleware

@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, UserPasswordReset } from '@prisma/client';
 
 import { PrismaService } from '@/common/services/prisma.service';
 
@@ -7,19 +7,19 @@ import { PrismaService } from '@/common/services/prisma.service';
 export class UserPasswordResetRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async create(data: Prisma.UserPasswordResetUncheckedCreateInput) {
+  create(data: Prisma.UserPasswordResetUncheckedCreateInput): Promise<UserPasswordReset> {
     return this.prismaService.userPasswordReset.create({ data });
   }
 
-  async getByCode(code: string) {
+  getByCode(code: string): Promise<UserPasswordReset> {
     return this.prismaService.userPasswordReset.findFirst({ where: { code } });
   }
 
-  async hardDeleteManyByUserId(userId: string) {
-    return this.prismaService.userPasswordReset.deleteMany({ where: { userId } });
+  async hardDeleteManyByUserId(userId: string): Promise<void> {
+    await this.prismaService.userPasswordReset.deleteMany({ where: { userId } });
   }
 
-  async hardDeleteByCode(code: string) {
-    return this.prismaService.userPasswordReset.delete({ where: { code } });
+  async hardDeleteByCode(code: string): Promise<void> {
+    await this.prismaService.userPasswordReset.delete({ where: { code } });
   }
 }

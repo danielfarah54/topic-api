@@ -9,7 +9,7 @@ export class ProgressStepper {
     this.onStep = onStep;
   }
 
-  increment(value = 1) {
+  increment(value = 1): void {
     if (value === 0) {
       return;
     } else if (value === 1) {

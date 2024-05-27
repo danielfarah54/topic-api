@@ -4,7 +4,7 @@ import { DataLoader } from '../loader';
 
 export type NoteSeedInput = Prisma.NoteUncheckedCreateInput;
 
-export async function seedNotes(loader: DataLoader, seedInput: NoteSeedInput[]) {
+export async function seedNotes(loader: DataLoader, seedInput: NoteSeedInput[]): Promise<void> {
   loader.log.initial('Seeding Notes...');
   await loader.handleGeneric(seedInput, {
     create: async (data: NoteSeedInput) => {

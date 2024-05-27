@@ -9,15 +9,15 @@ import { LocalStorageService } from '@/config/cls/cls.config';
 /**
  * Configuração global do módulo GraphQL.
  */
-export const graphqlConfigFactory = (configService: ConfigService, localStorageService: LocalStorageService) => {
+export const graphqlConfigFactory = (configService: ConfigService, localStorageService: LocalStorageService): any => {
   const environment = configService.getOrThrow('NODE_ENV');
   return {
     autoSchemaFile: true, // Gera o schema automaticamente
     playground: environment !== Environment.PRD, // Habilita o playground apenas para ambientes diferentes de PRD
     status400ForVariableCoercionErrors: true,
-    formatError: (error: any) => formatGraphqlErrors(error, configService, localStorageService),
+    formatError: (error: any): any => formatGraphqlErrors(error, configService, localStorageService),
     path: configService.getOrThrow('GRAPHQL_URL'),
-    context: ({ req, res }) => ({ req, res }),
+    context: ({ req, res }): any => ({ req, res }),
   };
 };
 

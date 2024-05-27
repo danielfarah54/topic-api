@@ -5,6 +5,7 @@ import { SignUpInput } from '@/common/dtos/auth.dto';
 import { UserFilterInput } from '@/common/dtos/user-filter.dto';
 import { UserUpdateInput } from '@/common/dtos/user.dto';
 import { RequestException } from '@/common/exceptions/request-exception.exception';
+import { Paginated } from '@/common/interfaces/paginated.interface';
 import { BcryptService } from '@/common/services/bcrypt.service';
 import { removeUndefinedKeys } from '@/common/utils/functions/remove-undefined-keys';
 import { RollbackManager } from '@/common/utils/functions/rollback.util';
@@ -14,7 +15,7 @@ import { UserRepository } from '@/repositories/user.repository';
 export class UserService {
   constructor(private userRepository: UserRepository, private readonly bcryptService: BcryptService) {}
 
-  async create(data: SignUpInput) {
+  async create(data: SignUpInput): Promise<User> {
     const userEmail = await this.userRepository.getByEmail(data.email);
 
     if (userEmail) {
@@ -27,11 +28,11 @@ export class UserService {
     });
   }
 
-  async getAll(data: UserFilterInput) {
+  getAll(data: UserFilterInput): Promise<Paginated<User>> {
     return this.userRepository.getAll(data);
   }
 
-  async getById(id: string, userIdFromToken?: string) {
+  async getById(id: string, userIdFromToken?: string): Promise<User> {
     if (userIdFromToken) {
       const userFromToken = await this.userRepository.getById(userIdFromToken);
       if (userFromToken.id !== id) {
@@ -46,7 +47,7 @@ export class UserService {
     return user;
   }
 
-  async update(data: UserUpdateInput) {
+  async update(data: UserUpdateInput): Promise<User> {
     const { id, ...rest } = data;
     const rollback = new RollbackManager();
     const currentUser = await this.userRepository.getById(id);

@@ -10,11 +10,11 @@ export class DataLoader {
   public readonly log = new SeedLog();
   private _remap: Record<string, any> = {};
 
-  remapId(oldId: any, newId: any) {
+  remapId(oldId: any, newId: any): void {
     this._remap[oldId] = newId;
   }
 
-  getId(oldId: string) {
+  getId(oldId: string): any {
     return oldId in this._remap ? this._remap[oldId] : oldId;
   }
 
@@ -46,7 +46,7 @@ export class DataLoader {
     }, {});
   }
 
-  async handleGeneric(data: Array<any>, params: DataLoaderHandleGenericParams) {
+  async handleGeneric(data: Array<any>, params: DataLoaderHandleGenericParams): Promise<void> {
     data = this.stripFlags(this.filterFlags(data));
     this.remapObject(data);
 
@@ -107,7 +107,7 @@ export class DataLoader {
     });
   }
 
-  private remapObject(obj?: Record<string, any> | Array<any>) {
+  private remapObject(obj?: Record<string, any> | Array<any>): void {
     if (obj === null || obj === undefined || typeof obj !== 'object') return;
     if (Array.isArray(obj)) {
       for (const item of obj) {

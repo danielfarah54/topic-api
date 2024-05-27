@@ -29,7 +29,7 @@ function flags(): string[] {
   return [...set];
 }
 
-async function main() {
+async function main(): Promise<void> {
   const loader = new DataLoader(prisma, flags());
   const data = await loader.readSeeds();
 
@@ -49,7 +49,7 @@ async function main() {
 }
 
 main()
-  .then(async () => prisma.$disconnect())
+  .then(async () => await prisma.$disconnect())
   .catch(async (e) => {
     error(e);
     await prisma.$disconnect();

@@ -1,3 +1,5 @@
+/* eslint-disable @typescript-eslint/explicit-function-return-type */
+/* eslint-disable require-await */
 import { ApolloServerPlugin, GraphQLRequestListener } from '@apollo/server';
 import { Plugin } from '@nestjs/apollo';
 import { ConfigService } from '@nestjs/config';

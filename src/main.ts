@@ -24,7 +24,7 @@ import { ShutdownObserver } from '@/config/server/shutdown-observer';
  * realiza configurações de validação de classes, conexão com o banco de dados,
  * configuração do Swagger e inicia o servidor.
  */
-async function bootstrap() {
+async function bootstrap(): Promise<void> {
   // Create the NestJS application
   const server = express();
   const app = await NestFactory.create(AppModule, new ExpressAdapter(server));

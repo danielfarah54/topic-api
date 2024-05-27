@@ -1,14 +1,14 @@
 import _ from 'lodash';
 
-export function randomInt(min: number, max: number) {
+export function randomInt(min: number, max: number): number {
   return Math.floor(Math.random() * (max - min + 1) + min);
 }
 
-export function randomHex() {
+export function randomHex(): string {
   return randomInt(0, 65536).toString(16);
 }
 
-export function randomLongHexString() {
+export function randomLongHexString(): string {
   return randomHex() + randomHex();
 }
 
@@ -16,7 +16,7 @@ export function randomObject<T>(it: T[]): T | undefined {
   return _.sample(it);
 }
 
-export function randomJoin(source: string[][], joiner: string) {
+export function randomJoin(source: string[][], joiner: string): string {
   return source.map((it) => randomObject(it)).join(joiner);
 }
 

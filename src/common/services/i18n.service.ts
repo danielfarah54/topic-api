@@ -36,7 +36,7 @@ export class I18nService {
    * @param fileName Nome do arquivo de traduções.
    * @returns Conteúdo do arquivo de traduções.
    */
-  private async getTranslationsFile(fileName: string) {
+  private getTranslationsFile(fileName: string): Record<string, string> {
     const lang: string = this.localStorageService.get('lang');
     const requestedFilePath = path.join(process.cwd(), 'i18n', lang, fileName);
     const defaultFilePath = path.join(process.cwd(), 'i18n', 'en-US', fileName);

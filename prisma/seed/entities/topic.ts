@@ -4,7 +4,7 @@ import { DataLoader } from '../loader';
 
 export type TopicSeedInput = Prisma.TopicUncheckedCreateInput;
 
-export async function seedTopics(loader: DataLoader, seedInput: TopicSeedInput[]) {
+export async function seedTopics(loader: DataLoader, seedInput: TopicSeedInput[]): Promise<void> {
   loader.log.initial('Seeding Topics...');
   await loader.handleGeneric(seedInput, {
     create: async (data: TopicSeedInput) => {

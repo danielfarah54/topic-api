@@ -7,10 +7,10 @@ import { PrismaService } from '@/common/services/prisma.service';
  * Habilita ganchos de encerramento e soft delete no Prisma.
  * @param app Instância da aplicação NestJS.
  */
-export const prismaSetup = async (app: INestApplication) => {
+export const prismaSetup = (app: INestApplication): void => {
   // Obtém o serviço do Prisma da instância da aplicação
   const prismaService = app.get(PrismaService);
 
   // Habilita ganchos de encerramento para o Prisma
-  await prismaService.enableShutdownHooks(app);
+  prismaService.enableShutdownHooks(app);
 };

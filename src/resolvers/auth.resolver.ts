@@ -19,39 +19,39 @@ export class AuthResolver {
   constructor(private readonly authService: AuthService) {}
 
   @Mutation(() => AuthenticatedModel)
-  async signUp(@Args('data') signUpInput: SignUpInput) {
+  signUp(@Args('data') signUpInput: SignUpInput): Promise<AuthenticatedModel> {
     return this.authService.signUp(signUpInput);
   }
 
   @Mutation(() => AuthenticatedModel)
-  async login(@Args('data') loginInput: LoginInput) {
+  login(@Args('data') loginInput: LoginInput): Promise<AuthenticatedModel> {
     return this.authService.login(loginInput);
   }
 
   @Mutation(() => Boolean)
   @UseGuards(authGuardian())
-  async logout(@User('id') userId: string) {
+  logout(@User('id') userId: string): Promise<boolean> {
     return this.authService.logout(userId);
   }
 
   @Mutation(() => AuthenticatedModel)
-  async refreshToken(@Args('data') refreshToken: RefreshTokenInput) {
+  refreshToken(@Args('data') refreshToken: RefreshTokenInput): Promise<AuthenticatedModel> {
     return this.authService.refreshToken(refreshToken);
   }
 
   @Mutation(() => Boolean)
   @UseGuards(authGuardian())
-  async changePassword(@Args('data') data: ChangePasswordInput, @User('id') userId: string) {
+  changePassword(@Args('data') data: ChangePasswordInput, @User('id') userId: string): Promise<boolean> {
     return this.authService.changePassword(data, userId);
   }
 
   @Mutation(() => Boolean)
-  async forgotPassword(@Args('data') data: ForgotPasswordInput) {
+  forgotPassword(@Args('data') data: ForgotPasswordInput): Promise<boolean> {
     return this.authService.forgotPassword(data.email);
   }
 
   @Mutation(() => Boolean)
-  async updateForgotPassword(@Args('data') data: UpdateForgotPasswordInput) {
+  updateForgotPassword(@Args('data') data: UpdateForgotPasswordInput): Promise<boolean> {
     return this.authService.updateForgotPassword(data);
   }
 }

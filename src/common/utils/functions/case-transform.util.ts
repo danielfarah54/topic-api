@@ -1,6 +1,6 @@
 import { Transform } from 'class-transformer';
 
-export const ToLowerCase = () =>
+export const ToLowerCase = (): PropertyDecorator =>
   Transform(({ value }: any) => {
     if (typeof value !== 'string') {
       return value;
@@ -8,7 +8,7 @@ export const ToLowerCase = () =>
     return value.toLowerCase();
   });
 
-export const ToUpperCase = () =>
+export const ToUpperCase = (): PropertyDecorator =>
   Transform(({ value }: any) => {
     if (typeof value !== 'string') {
       return value;
@@ -16,15 +16,15 @@ export const ToUpperCase = () =>
     return value.toUpperCase();
   });
 
-export function toCamelCase(str: string) {
+export function toCamelCase(str: string): string {
   return str.toLowerCase().replace(/[-_](.)/g, (_, c) => c.toUpperCase());
 }
 
-export function capitalizeFirstLetter(str: string) {
+export function capitalizeFirstLetter(str: string): string {
   return str.charAt(0).toUpperCase() + str.slice(1).toLowerCase();
 }
 
-export const HasValue = () =>
+export const HasValue = (): PropertyDecorator =>
   Transform(({ value }) => {
     if (value !== null && value !== undefined && value !== '') return value;
     return undefined;

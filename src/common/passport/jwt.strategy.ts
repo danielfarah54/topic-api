@@ -35,7 +35,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, AuthenticationMethod
    * @returns Objeto com o ID do usuário.
    *
    */
-  async validate(req: GuardOptionsRequest, payload: IJwtPayload) {
+  async validate(req: GuardOptionsRequest, payload: IJwtPayload): Promise<{ id: string }> {
     await this.handleTokenValidation(payload, req);
 
     this.localStorageService.set('userId', payload.sub);
@@ -43,7 +43,7 @@ export class JwtStrategy extends PassportStrategy(Strategy, AuthenticationMethod
     return { id: payload.sub };
   }
 
-  async handleTokenValidation(payload: IJwtPayload, req: Request) {
+  async handleTokenValidation(payload: IJwtPayload, req: Request): Promise<void> {
     const id = payload.sub;
     const token = ExtractJwt.fromAuthHeaderAsBearerToken()(req);
     const userCurrentToken = await this.sessionService.findTokenByUserId(id);

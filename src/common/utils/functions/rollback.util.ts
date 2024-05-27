@@ -10,7 +10,7 @@ import { Rollback } from '@/common/types/rollback.type';
 export class RollbackManager {
   private rollbacks: Rollback[] = [];
 
-  async triggerRollback() {
+  async triggerRollback(): Promise<void> {
     await this.executeRollbacks();
   }
 
@@ -27,7 +27,7 @@ export class RollbackManager {
     }
   }
 
-  private async executeRollbacks() {
+  private async executeRollbacks(): Promise<void> {
     for (const backward of [...this.rollbacks].reverse()) {
       try {
         await backward();

@@ -25,7 +25,7 @@ process.on('SIGINT', () => process.exit());
  */
 
 // Prompt interativo para selecionar o ambiente
-async function selectEnvironment() {
+async function selectEnvironment(): Promise<void> {
   let timeout = 5;
   let timeoutId;
 
@@ -66,7 +66,7 @@ async function selectEnvironment() {
 }
 
 // Carrega as variáveis de ambiente do arquivo .env.<environment> e executa o comando passado
-function configureEnvironment() {
+function configureEnvironment(): void {
   const envPath = path.join(process.cwd(), `./env/.env.${selectedEnvironment}`);
   const args = process.argv.slice(2);
 

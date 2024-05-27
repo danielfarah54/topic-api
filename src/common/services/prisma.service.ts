@@ -7,7 +7,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
    * Habilita os hooks de shutdown para fechar a conexão com o banco de dados.
    * @param app
    */
-  async enableShutdownHooks(app: INestApplication) {
+  enableShutdownHooks(app: INestApplication): void {
     this.$on('beforeExit', async () => {
       await app.close();
     });
@@ -16,7 +16,7 @@ export class PrismaService extends PrismaClient implements OnModuleInit {
   /**
    * Inicializa a conexão com o banco de dados.
    */
-  async onModuleInit() {
+  async onModuleInit(): Promise<void> {
     await this.$connect();
   }
 }

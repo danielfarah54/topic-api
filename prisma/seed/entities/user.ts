@@ -5,7 +5,7 @@ import { DataLoader } from '../loader';
 
 export type UserSeedInput = Prisma.UserCreateInput;
 
-export async function seedUsers(loader: DataLoader, seedInput: UserSeedInput[]) {
+export async function seedUsers(loader: DataLoader, seedInput: UserSeedInput[]): Promise<void> {
   loader.log.initial('Seeding Users...');
   await loader.handleGeneric(seedInput, {
     create: async (data: UserSeedInput) => {

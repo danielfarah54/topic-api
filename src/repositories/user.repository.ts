@@ -1,7 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { Prisma } from '@prisma/client';
+import { Prisma, User } from '@prisma/client';
 
 import { UserFilterInput } from '@/common/dtos/user-filter.dto';
+import { Paginated } from '@/common/interfaces/paginated.interface';
 import { PrismaService } from '@/common/services/prisma.service';
 import { getOrderBy } from '@/common/utils/prisma/order-by.util';
 import { calculatePagination } from '@/common/utils/prisma/pagination.util';
@@ -10,19 +11,19 @@ import { calculatePagination } from '@/common/utils/prisma/pagination.util';
 export class UserRepository {
   constructor(private prismaService: PrismaService) {}
 
-  async create(data: Prisma.UserUncheckedCreateInput) {
+  create(data: Prisma.UserUncheckedCreateInput): Promise<User> {
     return this.prismaService.user.create({ data });
   }
 
-  async getAll(data: UserFilterInput) {
+  async getAll(data: UserFilterInput): Promise<Paginated<User>> {
     const { take, skip } = calculatePagination(data);
 
     const where = {
       ...(data.name ? { name: { contains: data.name } } : {}),
     };
 
-    const totalUsers = await this.prismaService.user.count({ where });
-    const totalPages = Math.ceil(totalUsers / take);
+    const totalItems = await this.prismaService.user.count({ where });
+    const totalPages = Math.ceil(totalItems / take);
 
     const users = await this.prismaService.user.findMany({
       where,
@@ -33,24 +34,24 @@ export class UserRepository {
 
     return {
       totalPages,
-      totalUsers,
+      totalItems,
       data: users,
     };
   }
 
-  async getById(id: string) {
+  getById(id: string): Promise<User> {
     return this.prismaService.user.findFirst({ where: { id } });
   }
 
-  async getByEmail(email: string) {
+  getByEmail(email: string): Promise<User> {
     return this.prismaService.user.findFirst({ where: { email } });
   }
 
-  async update(id: string, data: Prisma.UserUpdateInput) {
+  update(id: string, data: Prisma.UserUpdateInput): Promise<User> {
     return this.prismaService.user.update({ where: { id }, data });
   }
 
-  async hardDelete(id: string) {
+  hardDelete(id: string): Promise<User> {
     return this.prismaService.user.delete({ where: { id } });
   }
 }

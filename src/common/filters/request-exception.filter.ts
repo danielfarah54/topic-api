@@ -16,7 +16,7 @@ export class RequestExceptionFilter implements ExceptionFilter {
    * Captura e manipula a exceção RequestException.
    * @param exception Exceção capturada.
    */
-  async catch(exception: RequestException) {
+  async catch(exception: RequestException): Promise<GraphQLError> {
     const message = await this.i18nService.translateException(exception.message); // Traduz a mensagem da exceção
 
     throw new GraphQLError(message, {
