@@ -18,5 +18,5 @@ export class UserFilterInput extends PaginationInput {
 }
 
 registerEnumType(OrderByInput, {
-  name: 'DefaultOrderByInput',
+  name: 'OrderByInput',
 });

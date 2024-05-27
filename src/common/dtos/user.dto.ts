@@ -39,5 +39,5 @@ export class UserGetAllInput extends PaginationInput {
 }
 
 registerEnumType(OrderByInput, {
-  name: 'DefaultOrderByInput',
+  name: 'OrderByInput',
 });

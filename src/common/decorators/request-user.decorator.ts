@@ -1,6 +1,8 @@
-import { ExecutionContext, createParamDecorator } from '@nestjs/common';
+import { ExecutionContext, HttpStatus, createParamDecorator } from '@nestjs/common';
 
 import { getGqlExecutionContext } from '@/common/utils/graphql/execution-context.util';
+
+import { RequestException } from '../exceptions/request-exception.exception';
 
 /**
  * Decorador de parâmetro personalizado para obter informações do usuário a partir do contexto da solicitação.
@@ -14,6 +16,10 @@ export const User = createParamDecorator((field: string | undefined = undefined,
 
   // Obtém as informações do usuário da requisição
   const user = request.user;
+
+  if (!user) {
+    throw new RequestException('AssertionError', HttpStatus.UNPROCESSABLE_ENTITY);
+  }
 
   // Se um campo específico for fornecido, retorna esse campo das informações do usuário
   if (field) return (user as Record<string, any>)[field];

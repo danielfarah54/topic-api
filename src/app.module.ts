@@ -15,6 +15,7 @@ import { graphqlConfigFactory } from '@/config/graphql/graphql.config';
 import { GraphQLService } from '@/config/graphql/graphql.service';
 import { ShutdownObserver } from '@/config/server/shutdown-observer';
 import { AuthModule } from '@/modules/auth.module';
+import { NoteModule } from '@/modules/note.module';
 import { SessionModule } from '@/modules/session.module';
 import { TopicModule } from '@/modules/topic.module';
 import { UserModule } from '@/modules/user.module';
@@ -38,13 +39,14 @@ import { UserModule } from '@/modules/user.module';
     }),
     JwtModule.registerAsync({
       inject: [ConfigService],
-      useFactory: async (configService: ConfigService) => ({
+      useFactory: (configService: ConfigService) => ({
         secret: configService.getOrThrow('JWT_SECRET'),
         signOptions: { expiresIn: configService.getOrThrow('JWT_EXPIRATION_TIME') },
       }),
       global: true,
     }),
     LocalStorageModule,
+    NoteModule,
     SessionModule,
     TopicModule,
     UserModule,

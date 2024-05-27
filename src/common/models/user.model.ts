@@ -1,5 +1,7 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 
+import { PaginateModel } from './paginated.model';
+
 @ObjectType('User')
 export class UserModel {
   @Field()
@@ -13,13 +15,4 @@ export class UserModel {
 }
 
 @ObjectType('PaginatedUser')
-export class PaginatedUserModel {
-  @Field()
-  totalPages: number;
-
-  @Field()
-  totalUsers: number;
-
-  @Field(() => [UserModel])
-  data: Array<UserModel>;
-}
+export class PaginatedUserModel extends PaginateModel(UserModel) {}

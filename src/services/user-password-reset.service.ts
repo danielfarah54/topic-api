@@ -18,7 +18,10 @@ export class UserPasswordResetService {
 
   async create(userId: string): Promise<string> {
     const user = await this.userService.getById(userId);
-    if (!user) throw new RequestException('UserNotFound', HttpStatus.BAD_REQUEST);
+
+    if (!user) {
+      throw new RequestException('UserNotFound', HttpStatus.BAD_REQUEST);
+    }
 
     const code = v4();
     const expiresIn = this.configService.getOrThrow('FORGOT_PASSWORD_CODE_EXPIRATION_MINUTES');

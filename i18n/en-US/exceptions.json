@@ -35,6 +35,7 @@
   "UserNotActive": "User not active",
   "DateOutOfRange": "Date out of range",
   "NoteNotFound": "Note not found",
+  "AssertionError": "Request could not be processed due to invalid input or logical error",
   "TopicNotFound": "Topic not found",
   "TopicHasNotes": "Topic has notes"
 }
