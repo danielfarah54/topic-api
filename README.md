@@ -5,87 +5,102 @@ O sistema tem o propósito de ser uma plataforma para salvar anotações de dife
 
 ## Requisitos Funcionais:
 
-- CRUD DE USUÁRIOS:
-  - CREATE:
-    - permissão:
-      - qualquer usuário
-    - dados:
-      - id
-      - nome
-      - email
-      - senha
-  - READ:
-    - permissão:
-      - admin
-      - usuário pode ver apenas seus dados
-  - UDPATE:
-    - permissão:
-      - usuário pode atualizar seus dados
-    - dados:
-      - nome
-      - senha
-  - DELETE:
-    - permissão:
-      - usuário pode excluir sua conta
+<details>
+  <summary>Usuários</summary>
 
-- LOGIN:
+- [ ] CREATE:
   - permissão:
     - qualquer usuário
+  - dados:
+    - id
+    - nome
+    - email
+    - senha
+- [ ] READ:
+  - permissão:
+    - usuário pode ver apenas seus dados
+- [ ] UDPATE:
+  - permissão:
+    - usuário pode atualizar seus dados
+  - dados:
+    - nome
+    - senha
+- [ ] DELETE:
+  - permissão:
+    - usuário pode excluir sua conta
+
+</details>
+
+<details>
+  <summary>Autenticação</summary>
+
+- [ ] LOGIN:
+  - permissão:
+    - qualquer usuário
+- [ ] LOGOUT:
+  - permissão:
+    - qualquer usuário
+
+</details>
   
-- LOGOUT:
+<details>  
+  <summary>Tópicos</summary>
+
+- [x] CREATE:
   - permissão:
     - qualquer usuário
+  - dados:
+    - id
+    - nome
+    - data de criação
+    - data de atualização
+    - id do usuário que criou
+- [x] READ:
+  - permissão:
+    - qualquer usuário
+  - regras:
+    - listar apenas a anotação mais recente do usuário na listagem do tópico
+- [x] UDPATE:
+  - permissão:
+    - usuário que criou
+  - regras:
+    - somente se o tópico não tiver anotações
+- [x] DELETE:
+  - permissão:
+    - usuário que criou
+  - regras:
+    - somente se o tópico não tiver anotações
 
-- CRUD DE TÓPICOS:
-  - CREATE:
-    - permissão:
-      - qualquer usuário
-    - dados:
-      - id
-      - nome
-      - data de criação
-      - data de atualização
-      - id do usuário que criou
-  - READ:
-    - permissão:
-      - qualquer usuário
-    - regras:
-      - listar apenas a anotação mais recente do usuário na listagem do tópico
-  - UDPATE:
-    - permissão:
-      - admin
-      - usuário que criou, somente se o tópico não tiver anotações
-  - DELETE:
-    - permissão:
-      - admin
-      - usuário que criou
-    - regras:
-      - somente se o tópico não tiver anotações
+</details>
 
-- CRUD DE ANOTAÇÕES DENTRO DO TÓPICO:
-  - CREATE:
-    - permissão:
-      - qualquer usuário
-    - dados:
-      - id
-      - título
-      - conteúdo
-      - data de criação
-      - data de atualização
-      - id do usuário que criou
-      - id do tópico
-  - READ:
-    - permissão:
-      - usuário pode ver somente suas anotações
-    - regras:
-      - poder listar a anotação mais recente de cada tópico
-      - poder listar o histórico de anotações de um tópico, com ordenação decrescente por data de criação
-  - UDPATE:
-    - permissão:
-      - usuário que criou
-  - DELETE:
-    - permissão:
-      - usuário que criou
+<details>  
+  <summary>Anotações</summary>
+
+- [x] CREATE:
+  - permissão:
+    - qualquer usuário
+  - dados:
+    - id
+    - título
+    - conteúdo
+    - data de criação
+    - data de atualização
+    - id do usuário que criou
+    - id do tópico
+- [x] READ:
+  - permissão:
+    - usuário pode ver somente suas anotações
+  - regras:
+    - poder listar a anotação mais recente de cada tópico
+    - poder listar o histórico de anotações de um tópico, com ordenação decrescente por data de criação
+- [x] UDPATE:
+  - permissão:
+    - usuário que criou
+- [x] DELETE:
+  - permissão:
+    - usuário que criou
+
+</details>
 
 ## Funcionalidades:
 
