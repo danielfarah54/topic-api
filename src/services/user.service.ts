@@ -16,9 +16,9 @@ export class UserService {
   constructor(private userRepository: UserRepository, private readonly bcryptService: BcryptService) {}
 
   async create(data: SignUpInput): Promise<User> {
-    const userEmail = await this.userRepository.getByEmail(data.email);
+    const existingUser = await this.userRepository.getByEmail(data.email);
 
-    if (userEmail) {
+    if (existingUser) {
       throw new RequestException('EmailAlreadyInUse', HttpStatus.BAD_REQUEST);
     }
 
