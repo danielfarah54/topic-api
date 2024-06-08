@@ -48,7 +48,7 @@ export class AuthService {
   async login({ email, password }: LoginInput): Promise<AuthenticatedModel> {
     const user = await this.validateUserPassword(email, password);
 
-    if (!user?.id || !user?.email) {
+    if (!user) {
       throw new RequestException('InvalidCredentials', HttpStatus.BAD_REQUEST);
     }
 
